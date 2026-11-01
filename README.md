@@ -1,98 +1,108 @@
-# Scientific Presentation, Poster & Paper LaTeX Templates 🔬📊
+<div align="center">
 
-Colección integral de plantillas en **LaTeX** profesionales y modulares para la divulgación científica: presentaciones para congresos o defensas de tesis, pósters de gran formato para simposios y artículos/reportes de laboratorio a dos columnas.
+[![English](https://img.shields.io/badge/Language-English-blue?style=for-the-badge)](README.md)
+[![Español](https://img.shields.io/badge/Idioma-Español-orange?style=for-the-badge)](README.es.md)
 
-Diseñado originalmente para proyectos de física experimental en la Universidad de las Américas Puebla (UDLAP), pero 100% adaptable a cualquier institución o disciplina científica.
+**[English](README.md)** | **[Español](README.es.md)**
+
+</div>
+
+# Scientific Presentation, Poster and Paper LaTeX Templates
+
+A comprehensive collection of professional, modular LaTeX templates for academic and scientific dissemination: widescreen conference presentations, large-format symposium posters, and two-column laboratory reports or journal articles.
+
+Originally developed for experimental physics projects at Universidad de las Américas Puebla (UDLAP), and designed to be easily customized for any university, institution, or scientific discipline.
 
 ---
 
-## 📁 Estructura del Repositorio
+## Repository Structure
 
-El repositorio está organizado de forma modular e independiente. Cada plantilla contiene su propio archivo fuente `main.tex`, su carpeta de imágenes `figures/`, su documentación dedicada y un PDF de ejemplo listo para visualizar:
+The repository is organized in a modular, independent architecture. Each template contains its own source file `main.tex`, an assets directory `figures/`, dedicated documentation, and a precompiled sample PDF ready for review:
 
 ```
 Presentations_Scientific_Poster_template/
-├── poster/               # 📌 Plantilla de Póster Científico (A0 / Gran Formato)
-│   ├── main.tex          # Código fuente LaTeX
-│   ├── a0header.ps       # Encabezado PostScript para a0poster
-│   ├── main.pdf          # Ejemplo compilado
-│   ├── figures/          # Logotipos, esquemas y diagramas
-│   └── README.md         # Guía detallada del póster
+├── poster/               # Scientific Poster Template (A0 / Large Format)
+│   ├── main.tex          # LaTeX source code
+│   ├── a0header.ps       # PostScript header required by a0poster
+│   ├── main.pdf          # Precompiled sample output
+│   ├── figures/          # Logos, diagrams, and figures
+│   └── README.md         # Dedicated poster guide
 │
-├── presentation/         # 💻 Plantilla de Presentación (Beamer 16:9 Panorámica)
-│   ├── main.tex          # Código fuente LaTeX
-│   ├── main.pdf          # Ejemplo compilado (14 diapositivas)
-│   ├── figures/          # Gráficas, montajes y diagramas
-│   └── README.md         # Guía detallada de la presentación
+├── presentation/         # Scientific Presentation Template (Beamer 16:9 Widescreen)
+│   ├── main.tex          # LaTeX source code
+│   ├── main.pdf          # Precompiled sample output (14 slides)
+│   ├── figures/          # Regression plots, setups, and schematics
+│   └── README.md         # Dedicated presentation guide
 │
-├── report/               # 📄 Plantilla de Reporte / Artículo (Dos Columnas)
-│   ├── main.tex          # Código fuente LaTeX
-│   ├── main.pdf          # Ejemplo compilado (4 páginas)
-│   ├── figures/          # Fotos y esquemas del experimento
-│   └── README.md         # Guía detallada del artículo
+├── report/               # Scientific Report / Article Template (Two-Column)
+│   ├── main.tex          # LaTeX source code
+│   ├── main.pdf          # Precompiled sample output (4 pages)
+│   ├── figures/          # Experimental photographs and diagrams
+│   └── README.md         # Dedicated report guide
 │
-├── .gitignore            # Exclusión de archivos auxiliares de compilación
-├── Makefile              # Automatización de compilación y limpieza
-├── LICENSE               # Licencia MIT de código abierto
-└── README.md             # Documentación general del repositorio
+├── .gitignore            # Excludes LaTeX compilation artifacts
+├── Makefile              # Automation for building and cleaning
+├── LICENSE               # MIT Open Source License
+├── README.md             # English documentation
+└── README.es.md          # Spanish documentation
 ```
 
 ---
 
-## 🎨 Las 3 Plantillas Incluidas
+## Included Templates
 
-### 1. 📌 Póster Científico (`poster/`)
-- **Base**: Clase `a0poster` con `geometry`, `tcolorbox`, `tikz` y `pgfplots`.
-- **Dimensiones**: Configurado en **90 cm × 130 cm** (vertical), adaptable con una línea a **DIN A0** (84.1 cm × 118.9 cm) o **DIN A1**.
-- **Diseño**: Estructura en 2 columnas con tarjetas (`card`) independientes, cabecera institucional para logotipo, título grande y autores.
-- **Gráficas Nativas**: Gráficas vectoriales en código con `pgfplots` (puntos experimentales, barras de error, promedios y bandas de incertidumbre).
-- **Tolerancia a Fallos**: Macro `\safegraphic` que avisa si falta una imagen sin romper la compilación.
-- *Ejemplo incluido*: "Interferencia con el Espejo de Fresnel: determinación de la longitud de onda de un láser He-Ne".
+### 1. Scientific Poster (`poster/`)
+- **Foundation**: `a0poster` class combined with `geometry`, `tcolorbox`, `tikz`, and `pgfplots`.
+- **Dimensions**: Configured by default to **90 cm × 130 cm** (vertical), easily adjusted with a single line to **DIN A0** (84.1 cm × 118.9 cm) or **DIN A1**.
+- **Layout**: 2-column structure with independent `card` environments, institutional banner for university logo, department, title, and authors list.
+- **Native Vector Plots**: Vector graphs generated with `pgfplots` (data points, error bars, mean line, and uncertainty bands).
+- **Fault-Tolerant Graphics**: Custom `\safegraphic` macro that warns visually if an image is missing without terminating compilation.
+- *Sample included*: "Interference at Fresnel's Mirror: determination of the wavelength of an He-Ne laser".
 
-### 2. 💻 Presentación Panorámica (`presentation/`)
-- **Base**: `beamer` con `[aspectratio=169]` (formato panorámico 16:9).
-- **Estilo**: *Dark Mode* moderno con acentos en azul neón (`neonblue`), alto contraste y tipografía nítida para proyectores y pantallas.
-- **Diapositivas TikZ**: Portada y cierre con partición geométrica diagonal.
-- **Tipos de Diapositiva**:
-  - Objetivos y metas específicas.
-  - Marco teórico en 2 columnas (ecuaciones + diagrama).
-  - Metodología y montaje experimental con fotografías.
-  - Resultados y ajustes lineales por regresión.
-  - Análisis, discusión y discrepancias.
-  - Conclusiones y referencias bibliográficas.
-- *Ejemplo incluido*: "Anillos de Newton: Interferencia en Películas Delgadas".
+### 2. Widescreen Presentation (`presentation/`)
+- **Foundation**: `beamer` class with `[aspectratio=169]` (16:9 modern widescreen).
+- **Style**: Modern Dark Mode with neon blue accents (`neonblue`), high contrast, and crisp typography for projectors and screens.
+- **TikZ Title & Closing**: Geometric diagonal split slides for opening and closing frames.
+- **Slide Layouts**:
+  - Objectives and specific goals.
+  - Two-column theoretical framework (equations and schematic diagram).
+  - Methodology and experimental apparatus with laboratory photographs.
+  - Results and linear regression analysis.
+  - Discussion, analysis, and experimental discrepancies.
+  - Numbered conclusions and bibliography.
+- *Sample included*: "Newton's Rings: Thin-Film Interference".
 
-### 3. 📄 Reporte / Artículo de Laboratorio (`report/`)
-- **Base**: Clase `article` con `multicol`, `geometry` y `fancyhdr`.
-- **Estructura**: Formato tipo publicación académica (IEEE / *Physical Review*) a dos columnas.
-- **Elementos**: Resumen (*abstract*) y *keywords*, ecuaciones numeradas, propagación formal de errores experimentales $(X \pm \delta X)$, tablas de datos y bibliografía en formato estándar.
-- *Ejemplo incluido*: "Experimento del espejo de Fresnel".
+### 3. Lab Report / Research Paper (`report/`)
+- **Foundation**: `article` class with `multicol`, `geometry`, and `fancyhdr`.
+- **Layout**: Two-column academic journal format (IEEE / *Physical Review* style).
+- **Features**: Full-width abstract and keywords, numbered equations, formal error propagation $(X \pm \delta X)$, data tables, and standard bibliography.
+- *Sample included*: "Fresnel's Mirror Experiment".
 
 ---
 
-## 🚀 Cómo Compilar
+## How to Compile
 
-### Opción A: Usando el Makefile (Recomendado en Mac/Linux)
-El repositorio incluye un `Makefile` listo para usar:
+### Option A: Using the Makefile (Recommended for macOS / Linux)
+The repository includes a ready-to-use `Makefile`:
 
 ```bash
-# Compilar todo el repositorio (póster, presentación y reporte):
+# Compile all templates (poster, presentation, and report):
 make all
 
-# Compilar solo una plantilla específica:
-make poster          # Genera poster/main.pdf
-make presentation    # Genera presentation/main.pdf
-make report          # Genera report/main.pdf
+# Compile a specific template:
+make poster          # Builds poster/main.pdf
+make presentation    # Builds presentation/main.pdf
+make report          # Builds report/main.pdf
 
-# Eliminar todos los archivos auxiliares (.aux, .log, .toc, .nav, etc.):
+# Clean build artifacts (.aux, .log, .toc, .nav, etc.):
 make clean
 
-# Ver ayuda de comandos:
+# Display available commands:
 make help
 ```
 
-### Opción B: Directo en Terminal (pdfLaTeX)
-Accede a la carpeta de la plantilla deseada y ejecuta dos veces para resolver referencias cruzadas:
+### Option B: Directly with pdfLaTeX
+Navigate to the desired template folder and compile twice to resolve cross-references:
 
 ```bash
 cd poster
@@ -100,35 +110,35 @@ pdflatex -interaction=nonstopmode main.tex
 pdflatex -interaction=nonstopmode main.tex
 ```
 
-### Opción C: Overleaf
-1. Descarga o comprime la carpeta de la plantilla que deseas usar (por ejemplo `poster/` o `presentation/`) en un archivo `.zip`.
-2. En [Overleaf](https://www.overleaf.com), selecciona **New Project** > **Upload Project**.
-3. Sube el `.zip` y compila con el motor **pdfLaTeX** predeterminado.
+### Option C: Overleaf
+1. Compress the desired template folder (e.g., `poster/` or `presentation/`) into a `.zip` archive.
+2. In [Overleaf](https://www.overleaf.com), select **New Project** > **Upload Project**.
+3. Upload the `.zip` file and compile using the default **pdfLaTeX** compiler.
 
-### Opción D: Visual Studio Code
-Instala la extensión **LaTeX Workshop**. Al abrir cualquier archivo `main.tex`, presiona `Cmd+Option+B` (Mac) o `Ctrl+Alt+B` (Windows/Linux) para compilar.
+### Option D: Visual Studio Code
+Install the **LaTeX Workshop** extension. Open any `main.tex` and press `Cmd+Option+B` (macOS) or `Ctrl+Alt+B` (Windows/Linux) to build.
 
 ---
 
-## 🛠 Requisitos de LaTeX
+## LaTeX Requirements
 
-Cualquier distribución moderna de TeX funcionará (TeX Live 2021+, MacTeX o MiKTeX). Paquetes principales utilizados:
+Any modern TeX distribution works out of the box (TeX Live 2021+, MacTeX, or MiKTeX). Key packages used:
 - `a0poster`, `beamer`, `article`
 - `tikz`, `pgfplots`, `tcolorbox`
 - `geometry`, `graphicx`, `xcolor`, `booktabs`, `enumitem`, `microtype`, `multicol`, `fancyhdr`
-- `babel` (configurado en español con soporte para modo matemático)
+- `babel` (configured for Spanish with math decimal support, easily switched to English)
 
 ---
 
-## 👥 Autores y Créditos
+## Authors and Credits
 
-Plantillas desarrolladas y utilizadas en proyectos de **Óptica Experimental** en el **Departamento de Actuaría, Física y Matemáticas** de la **Universidad de las Américas Puebla (UDLAP)** por:
+Templates developed and utilized in **Experimental Optics** coursework at the **Department of Actuarial Sciences, Physics, and Mathematics** of **Universidad de las Américas Puebla (UDLAP)** by:
 - **Ángel Gabriel Munguía Velázquez** ([@AngelGab3](https://github.com/AngelGab3))
 - **Alan Iván Ortega Contreras**
 - **Luz Stefanía Pérez Huesca**
 
 ---
 
-## 📄 Licencia
+## License
 
-Este proyecto se distribuye bajo la licencia **MIT**. Eres libre de usar, modificar y adaptar estas plantillas para tus proyectos académicos, conferencias y publicaciones. Consulta el archivo [LICENSE](LICENSE) para más detalles.
+This project is released under the **MIT License**. You are free to use, modify, and distribute these templates for your academic, conference, and research projects. See the [LICENSE](LICENSE) file for details.
