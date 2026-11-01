@@ -1,0 +1,337 @@
+\documentclass{a0poster}
+
+% ------------------------------------------------------------------
+%  Paquetes
+% ------------------------------------------------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}                                  % fuentes escalables
+\usepackage[spanish,es-nodecimaldot,es-tabla]{babel}  % punto decimal en modo matemático, "Tabla"
+
+% Tamaño real del póster: 90 cm (ancho) x 130 cm (alto), vertical
+% Para tamaño DIN A0 estándar: paperwidth=84.1cm, paperheight=118.9cm
+% Para tamaño DIN A1: paperwidth=59.4cm, paperheight=84.1cm
+\usepackage[
+  paperwidth=90cm, paperheight=130cm,
+  left=2cm, right=2cm,
+  top=21 cm,    % cabecera (20.5 cm) + margen
+  bottom=4cm     % pie de página
+]{geometry}
+
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{tcolorbox}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage[font=large, labelfont={bf,color=UDLAPorange}, labelsep=period, skip=1.5ex]{caption}
+\captionsetup[figure]{font=Large}
+
+\pgfplotsset{compat=1.16}
+
+% ------------------------------------------------------------------
+%  Paleta de Colores (Personalizable)
+% ------------------------------------------------------------------
+% Colores predeterminados (estilo institucional UDLAP):
+\definecolor{UDLAPorange}{RGB}{242,122,36} % Color primario / acentos
+\definecolor{UDLAPdark}{RGB}{51,51,51}     % Color secundario / textos
+\definecolor{UDLAPbg}{RGB}{253,240,230}   % Fondo tenue para cajas o realces
+
+% Para cambiar a otra universidad o combinación de colores:
+% UNAM: \definecolor{UDLAPorange}{RGB}{0,43,127}  % Azul UNAM
+%       \definecolor{UDLAPdark}{RGB}{198,153,35}  % Oro UNAM
+% IPN:  \definecolor{UDLAPorange}{RGB}{108,19,42}  % Guinda IPN
+
+% ------------------------------------------------------------------
+% TAMAÑO DE LETRA DEL CUERPO \normalsize (24.9 pt), \large (29.9 pt),
+%  \Large (35.8 pt), \LARGE (38 pt), \huge (51.6 pt)
+% ------------------------------------------------------------------
+\newcommand{\bodysize}{\Large}
+
+% ------------------------------------------------------------------
+%  Ajustes generales
+% ------------------------------------------------------------------
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.4\baselineskip}
+\emergencystretch=3em
+\setlength{\heavyrulewidth}{2pt}
+\setlength{\lightrulewidth}{1pt}
+\setlist{itemsep=0.4ex, topsep=0.4ex, parsep=0pt}
+
+% Unidades abreviadas
+\newcommand{\mm}{\,\mathrm{mm}}
+\newcommand{\nm}{\,\mathrm{nm}}
+
+% Ancho de cada columna
+\newlength{\colw}
+\setlength{\colw}{0.488\textwidth}
+
+% ------------------------------------------------------------------
+%  Ruta de figuras
+% ------------------------------------------------------------------
+\graphicspath{{figures/}{./}}
+
+% Imagen con respaldo: busca primero en figures/ y luego en el directorio raíz.
+% Si el archivo no existe, dibuja un recuadro de aviso en lugar de interrumpir la compilación.
+\newcommand{\safegraphic}[2][]{%
+  \IfFileExists{figures/#2}{\includegraphics[#1]{figures/#2}}{%
+    \IfFileExists{#2}{\includegraphics[#1]{#2}}{%
+      \fbox{\parbox[c][6cm][c]{12cm}{\centering\color{gray}\sffamily
+        Falta el archivo:\\\texttt{\detokenize{#2}}}}}}}
+
+% Tarjeta de sección: panel blanco con barra de título naranja
+\newtcolorbox{card}[1]{%
+  colback=white, colframe=UDLAPorange,
+  coltitle=white, colbacktitle=UDLAPorange,
+  title={#1}, fonttitle=\sffamily\bfseries\Huge, halign title=center,
+  boxrule=1.5pt, arc=5mm,
+  left=7mm, right=7mm, top=5mm, bottom=5mm,
+  toptitle=3mm, bottomtitle=3mm,
+  before skip=0pt, after skip=0.8cm}
+
+% Datos de autoría
+\newcommand{\posterauthors}{%
+  Alan Ivan Ortega Contreras\textsuperscript{1}\quad
+  Luz Stefanía Pérez Huesca\textsuperscript{1}\quad
+  Ángel Gabriel Munguía Velázquez\textsuperscript{1}}
+
+% ------------------------------------------------------------------
+%  Cabecera y pie de página (se dibujan una sola vez, sobre la página)
+% ------------------------------------------------------------------
+\newcommand{\posterheader}{%
+\begin{tikzpicture}[remember picture, overlay]
+  % --- Franja blanca superior (8 cm) ---
+  \fill[white] (current page.north west) rectangle ([yshift=-8cm]current page.north east);
+
+  % --- Franja naranja con el título (12.5 cm) ---
+  \fill[UDLAPorange] ([yshift=-8cm]current page.north west)
+                     rectangle ([yshift=-20.5cm]current page.north east);
+
+  % --- Logo UDLAP (izquierda) ---
+  \node[anchor=west, inner sep=0pt] at ([xshift=3cm, yshift=-4cm]current page.north west)
+    {\safegraphic[height=4.5cm]{udlap_logo.png}};
+
+  % --- Institución (derecha) ---
+  \node[anchor=east, align=right, text width=52cm, inner sep=0pt]
+    at ([xshift=-3cm, yshift=-4cm]current page.north east) {%
+    {\sffamily\bfseries\color{UDLAPorange}\huge Universidad de las Américas Puebla\par}
+    \vspace{1ex}
+    {\sffamily\bfseries\color{UDLAPdark}\LARGE Depto.\ de Actuaría, Física y Matemáticas\par}};
+
+  % --- Título, autores y afiliación (sobre la franja naranja) ---
+  \node[anchor=center, align=center, text=white, text width=84cm, inner sep=0pt]
+    at ([yshift=-14.25cm]current page.north) {%
+    \linespread{0.9}\selectfont
+    {\sffamily\bfseries\Huge Interferencia con el espejo de Fresnel:\\[0pt]
+     determinación de la longitud de onda de un láser He--Ne\par}
+    \vspace{1.5ex}
+    {\sffamily\LARGE \posterauthors\par}
+    \vspace{0.5ex}
+    {\sffamily\Large \textsuperscript{1}Depto.\ de Actuaría, Física y Matemáticas,
+     Universidad de las Américas Puebla, Puebla, México 72810\par}};
+
+  % --- Pie de página con curso y contacto ---
+  \fill[UDLAPorange] ([yshift=0cm]current page.south west)
+                     rectangle ([yshift=5cm]current page.south east);
+  \node[anchor=west, align=left, text=white, inner sep=0pt]
+    at ([xshift=3cm, yshift=2.5cm]current page.south west)
+    {\linespread{0.9}\selectfont
+     \sffamily\bfseries\LARGE Óptica Experimental, UDLAP\\[0pt]
+     \large O26-LFA3032-1};
+  \node[anchor=east, align=right, text=white, inner sep=0pt]
+    at ([xshift=-3cm, yshift=2.5cm]current page.south east)
+    {\linespread{0.9}\selectfont
+     \sffamily\bfseries\Large Contacto\\[0pt]
+     \large\mdseries alan.ortegacs@udlap.mx \quad luz.perezha@udlap.mx\\
+     angel.munguiavz@udlap.mx};
+\end{tikzpicture}%
+}
+
+% ==================================================================
+\begin{document}
+
+\pagecolor{UDLAPbg}
+\posterheader
+
+\bodysize
+
+% ------------------------------------------------------------------
+%  Abstract (ancho completo)
+% ------------------------------------------------------------------
+\begin{card}{Abstract}
+Se estudió la interferencia de dos fuentes virtuales coherentes mediante el espejo de Fresnel. A partir de la separación entre franjas y de la separación geométrica de las fuentes se obtuvo una longitud de onda de \((670\pm70)\nm\), con un error del \(6.3\%\) respecto al valor nominal de \(632.8\nm\).
+
+\textcolor{UDLAPorange}{\textbf{Keywords:}} interferencia, espejo de Fresnel, fuentes virtuales, longitud de onda, láser He--Ne.
+\end{card}
+
+\noindent
+% ==================================================================
+%  Columna izquierda
+% ==================================================================
+\begin{minipage}[t]{\colw}
+\vspace{0pt}
+
+\begin{card}{Objetivo e Introducción}
+\textbf{Objetivo.} Determinar la longitud de onda de un láser He--Ne a partir de la separación entre franjas de interferencia (\(\bar d\)) y de la separación proyectada de las fuentes virtuales (\(A\)).
+
+\textbf{Introducción.} El espejo de Fresnel genera dos fuentes virtuales , \(S_1'\) y \(S_2'\), mediante la reflexión de una fuente puntual. Esto permite observar un patrón de interferencia estable y evidenciar la naturaleza ondulatoria de la luz.
+\end{card}
+
+\begin{card}{Marco teórico}
+\begin{minipage}[t]{0.40\linewidth}
+\vspace{0pt}
+El haz reflejado por los dos semi-espejos ligeramente inclinados genera dos ondas que se originan en las fuentes virtuales \(S_1'\) y \(S_2'\). Los máximos de intensidad cumplen \(\Delta s=n\lambda\), con \(\Delta s\) la diferencia de trayectoria óptica. Para una pantalla a gran distancia \(L\) (Fig.~\ref{fig:diagrama}), con \(a\) la separación entre las fuentes y \(\bar d\) la distancia medida entre franjas,
+\begin{equation}
+\lambda=a\,\frac{\bar d}{L}.
+\label{eq:lambda}
+\end{equation}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.58\linewidth}
+\vspace{0pt}
+\centering
+\safegraphic[width=\linewidth,height=18cm,keepaspectratio]{Diagrama_Fresnel.png}
+\captionof{figure}{Diagrama de rayos del espejo de Fresnel.}
+\label{fig:diagrama}
+\end{minipage}
+
+\begin{minipage}[t]{0.40\linewidth}
+\vspace{0pt}
+Para determinar \(a\), se proyectan las fuentes con una segunda lente (Fig.~\ref{fig:trayectoria}); por triángulos semejantes,
+\begin{equation}
+a=A\,\frac{L_1}{L_2},
+\label{eq:a}
+\end{equation}
+con \(A\) la separación entre las imágenes proyectadas, \(L_1\) la distancia de las fuentes a la lente y \(L_2\) la de la lente a la pantalla. Combinando ambas ecuaciones se obtiene un método puramente geométrico para estimar \(\lambda\).
+\end{minipage}\hfill
+\begin{minipage}[t]{0.58\linewidth}
+\vspace{0pt}
+\centering
+\vspace{-5cm}
+\safegraphic[width=\linewidth,height=24cm,keepaspectratio]{trayectoria.png}
+\captionof{figure}{Trayectoria del haz y proyección con la lente.}
+\label{fig:trayectoria}
+\end{minipage}
+
+\end{card}
+
+\begin{card}{Montaje experimental}
+\begin{center}
+\safegraphic[width=0.72\linewidth,height=26cm,keepaspectratio]{PHOTO-2026-10-02-07-00-35.jpg}
+\captionof{figure}{Montaje: láser He--Ne, lentes, espejo de Fresnel y pantalla traslúcida.}
+\label{fig:montaje}
+\end{center}
+\end{card}
+
+\end{minipage}\hfill
+% ==================================================================
+%  Columna derecha
+% ==================================================================
+\begin{minipage}[t]{\colw}
+\vspace{0pt}
+
+\begin{card}{Resultados y Análisis}
+\begin{minipage}[t]{0.48\linewidth}
+\vspace{0pt}
+\centering
+\safegraphic[width=\linewidth,height=11cm,keepaspectratio]{IMG_5736.jpeg}
+\captionof{figure}{Fuentes virtuales proyectadas.}
+\label{fig:puntos}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.48\linewidth}
+\vspace{0pt}
+\centering
+\safegraphic[width=\linewidth,height=12.5cm,keepaspectratio]{IMG_5734.jpeg}
+\captionof{figure}{Patrón de interferencia.}
+\label{fig:patron}
+\end{minipage}
+\par\vspace{1ex}
+Se midieron cinco separaciones \(d_k\) entre máximos consecutivos (Fig.~\ref{fig:grafica_d}) y las distancias del montaje (Tabla~\ref{tab:distancias}).
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  width=0.92\linewidth, height=11.5cm,
+  xlabel={Medición \(k\)}, ylabel={\(d_k\) (mm)},
+  xmin=0.5, xmax=5.5, ymin=0.2, ymax=0.6,
+  xtick={1,2,3,4,5}, ytick={0.2,0.3,0.4,0.5,0.6},
+  grid=major, grid style={gray!25},
+  label style={font=\Large}, tick label style={font=\large},
+  legend style={font=\large, draw=none, fill=white, fill opacity=0.85, text opacity=1},
+  legend pos=north east]
+  \fill[UDLAPorange!25] (axis cs:0.5,0.355) rectangle (axis cs:5.5,0.429);
+  \addplot+[only marks, mark=*, mark size=4pt, color=UDLAPdark,
+            nodes near coords={\pgfmathprintnumber[fixed,fixed zerofill,precision=2]{\pgfplotspointmeta}},
+            every node near coord/.append style={font=\large, anchor=south, yshift=4pt},
+            error bars/.cd, y dir=both, y explicit]
+    coordinates {(1,0.36) +- (0,0.01) (2,0.46) +- (0,0.01) (3,0.50) +- (0,0.01)
+                 (4,0.32) +- (0,0.01) (5,0.32) +- (0,0.01)};
+  \addplot[dashed, very thick, UDLAPorange] coordinates {(0.5,0.392) (5.5,0.392)};
+  \legend{\(d_k\), \(\bar d\)}
+\end{axis}
+\end{tikzpicture}
+\captionof{figure}{Separaciones medidas (\(\pm0.01\mm\)), promedio \(\bar d\) y banda \(\pm\sigma_{\bar d}\).}
+\label{fig:grafica_d}
+\end{center}
+
+\vspace{-1ex}
+\[
+\bar d=\frac{1}{N}\sum_{k=1}^{N}d_k=0.392\mm,\qquad
+\sigma_{\bar d}=\frac{\sigma_d}{\sqrt N}=0.037\mm,
+\]
+con \(N=5\) y \(\sigma_d\) la desviación estándar de las \(d_k\); es decir, \mbox{\(\bar d=(0.39\pm0.04)\mm\)}.
+
+\begin{center}
+\Large
+\setlength{\tabcolsep}{10pt}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{ccccc}
+\toprule
+\(A\) & \(L_0\) & \(L_2\) & \(L_1\) & \(L\)\\
+\midrule
+\(5.0\pm0.1\) & \(290.0\pm0.5\) & \(780.0\pm0.5\) & \(285.0\pm0.5\) & \(1065.0\pm0.7\)\\
+\bottomrule
+\end{tabular}
+\captionof{table}{Distancias del montaje (mm). \(L_0\): entre la lente de \(5\mm\) y la de proyección; \(L_1=L_0-5\mm\) (la fuente puntual está en el foco de la lente de \(5\mm\)); \(L=L_1+L_2\).}
+\label{tab:distancias}
+\end{center}
+
+Con los valores sin redondear:
+\begin{align*}
+a&=A\,\frac{L_1}{L_2}=5.0\mm\cdot\frac{285.0\mm}{780.0\mm}=1.8269\mm,\\
+\lambda&=a\,\frac{\bar d}{L}=1.8269\mm\cdot\frac{0.392\mm}{1065.0\mm}=672.4\nm.
+\end{align*}
+
+Propagando las incertidumbres (variables independientes),
+\[
+\delta\lambda=\lambda\sqrt{\sum_i\left(\frac{\delta x_i}{x_i}\right)^{2}},
+\qquad x_i\in\{A,L_1,L_2,L,\bar d\}.
+\]
+Domina \(\bar d\) (\(\approx9.5\%\)), seguida de \(A\) (\(2\%\)): \(\delta\lambda\approx65\nm\approx70\nm\).
+
+\begin{tcolorbox}[colback=UDLAPorange!10, colframe=UDLAPorange, boxrule=2pt, arc=3mm]
+\[
+\lambda=(670\pm70)\nm,\qquad
+\%\mathrm{error}=\frac{|672.4-632.8|}{632.8}\times100\%=6.3\%
+\]
+\end{tcolorbox}
+\end{card}
+
+\begin{card}{Conclusiones}
+El espejo de Fresnel generó fuentes virtuales coherentes separadas \(a\approx1.83\mm\). Se obtuvo \(\lambda=(670\pm70)\nm\), con un error de \(6.3\%\) respecto al valor nominal del láser He--Ne, lo que valida cuantitativamente la relación entre el espaciamiento de las franjas y la longitud de onda.
+\end{card}
+
+\begin{card}{Referencias}
+\normalsize
+\begin{enumerate}[label={[\arabic*]}, leftmargin=*, labelsep=1ex, itemsep=1ex]
+\item LD DIDACTIC GmbH, \emph{Interference at a Fresnel's mirror with an He--Ne laser}, Physics Leaflets P5.3.2.1, pp.~1--3.
+\item LEYBOLD DIDACTIC GmbH, \emph{He--Ne laser, linearly polarised (471 830)}, Instruction sheet, 06/04-W97-Kem, pp.~1--2.
+\end{enumerate}
+\end{card}
+
+\end{minipage}
+
+\end{document}
